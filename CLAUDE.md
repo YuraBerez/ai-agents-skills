@@ -10,9 +10,14 @@ This repository contains custom skills for Claude Code AI agents. Skills are reu
 
 ```text
 skills/
-  product/          # Define what to build and why
+  product/          # Define what to build, why, and whether it worked
+    hypothesis/
     idea-processing/
     problem-solver/
+    user-story/
+    prioritization/
+    metrics/
+    feature-retro/
   dev/              # Plan, research, and ship
     idea-to-task/
     task-breakdown/
@@ -30,8 +35,13 @@ CLAUDE.md
 
 | Skill | Trigger | Purpose |
 | --- | --- | --- |
+| hypothesis | `/hypothesis` | Frames a product assumption as a testable hypothesis before committing to build |
 | idea-processing | `/idea-processing` | Turns a rough idea into a structured Idea Spec via clarifying questions |
 | problem-solver | `/problem-solver` | Identifies problems, analyses root causes, and proposes ranked solution options |
+| user-story | `/user-story` | Breaks an Idea Spec into well-formed user stories ready for a dev backlog |
+| prioritization | `/prioritization` | Ranks ideas or features using RICE, MoSCoW, or Impact/Effort matrix |
+| metrics | `/metrics` | Defines measurable success criteria and instrumentation plan before work begins |
+| feature-retro | `/feature-retro` | Evaluates a shipped feature against its goals and produces learnings and next actions |
 
 ### Dev
 
@@ -50,11 +60,13 @@ CLAUDE.md
 
 ## Skill Pipelines
 
-**Idea**: `/idea-processing` → `/idea-to-task` → `/task-breakdown` → `/pr-description` → `/pr-check`
+**Full product**: `/hypothesis` → `/idea-processing` → `/metrics` → `/idea-to-task` → `/task-breakdown` → `/pr-description` → `/pr-check` → `/feature-retro`
 
 **Problem**: `/problem-solver` → `/idea-processing` or `/idea-to-task` or `/research-spike`
 
-**Research**: `/research-spike` can be triggered from any skill that produces Open Technical Questions.
+**Planning**: `/prioritization` → `/hypothesis` → `/metrics`
+
+**Research**: `/research-spike` can be triggered from any skill that produces Open Technical Questions or Risks.
 
 ## Adding a New Skill
 
@@ -65,7 +77,7 @@ CLAUDE.md
 ## Skill Authoring Conventions
 
 - Instructions must be imperative and unambiguous.
-- Every skill must have a **Trigger** section and a **Rules** section.
+- Every skill must have a **Trigger** section (with entry points from other skills) and a **Rules** section.
 - Every skill must end its output with explicit next-skill references — skills chain, not dead-end.
 - Ask clarifying questions before producing output; never skip on ambiguous input.
 - Specify output format exactly — use fenced template blocks with named sections.

@@ -10,12 +10,17 @@ A skill is a `SKILL.md` file that Claude Code loads when you type `/skill-name` 
 
 ### Product
 
-Define what to build and why.
+Define what to build, why, and whether it worked.
 
 | Skill | Trigger | Description |
 | --- | --- | --- |
+| [hypothesis](skills/product/hypothesis/SKILL.md) | `/hypothesis` | Frames a product assumption as a testable hypothesis before committing to build |
 | [idea-processing](skills/product/idea-processing/SKILL.md) | `/idea-processing` | Turns a rough idea into a structured Idea Spec via clarifying questions |
 | [problem-solver](skills/product/problem-solver/SKILL.md) | `/problem-solver` | Identifies problems, analyses root causes, and proposes ranked solution options |
+| [user-story](skills/product/user-story/SKILL.md) | `/user-story` | Breaks an Idea Spec into well-formed user stories ready for a dev backlog |
+| [prioritization](skills/product/prioritization/SKILL.md) | `/prioritization` | Ranks a list of ideas or features using RICE, MoSCoW, or Impact/Effort matrix |
+| [metrics](skills/product/metrics/SKILL.md) | `/metrics` | Defines measurable success criteria and instrumentation plan before work begins |
+| [feature-retro](skills/product/feature-retro/SKILL.md) | `/feature-retro` | Evaluates a shipped feature against its goals and produces learnings and next actions |
 
 ### Dev
 
@@ -38,26 +43,36 @@ Verify and validate.
 
 ## Workflow
 
-### Idea pipeline
+### Full product pipeline
 
 ```text
-Raw idea
-  └─▶ /idea-processing ──▶ Idea Spec
-                                └─▶ /idea-to-task ──▶ Technical Task
-                                                            ├─▶ /research-spike  (open questions)
-                                                            ├─▶ /task-breakdown  (sprint planning)
-                                                            └─▶ /pr-description  (after implementation)
-                                                                      └─▶ /pr-check  (before merge)
+/hypothesis  ──▶  validated assumption
+                        └─▶ /idea-processing ──▶ Idea Spec
+                                                      ├─▶ /user-story      (backlog-based teams)
+                                                      ├─▶ /metrics         (define success first)
+                                                      └─▶ /idea-to-task ──▶ Technical Task
+                                                                                ├─▶ /research-spike
+                                                                                ├─▶ /task-breakdown
+                                                                                └─▶ /pr-description
+                                                                                          └─▶ /pr-check
+                                                                                                  └─▶ /feature-retro
 ```
 
 ### Problem pipeline
 
 ```text
-Problem / blocker
-  └─▶ /problem-solver ──▶ Problem Analysis
-                                └─▶ /idea-processing  (solution = new feature)
-                                └─▶ /idea-to-task     (solution is already well-defined)
-                                └─▶ /research-spike   (solution needs investigation first)
+/problem-solver ──▶ Problem Analysis
+                          ├─▶ /idea-processing  (solution = new feature)
+                          ├─▶ /idea-to-task     (solution is already well-defined)
+                          └─▶ /research-spike   (solution needs investigation first)
+```
+
+### Planning pipeline
+
+```text
+[list of ideas] ──▶ /prioritization ──▶ ranked list
+                                              └─▶ /hypothesis  (validate top items)
+                                              └─▶ /metrics     (define success for top items)
 ```
 
 ## How to use a skill in your project

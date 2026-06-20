@@ -1,25 +1,19 @@
 # Lychee link checker configuration
 # https://github.com/lycheeverse/lychee
 
-# Check relative file paths as well as external URLs
 include_fragments = false
-
-# Retry transient failures
 max_retries = 3
-
-# Timeout per request (seconds)
 timeout = 20
 
 # Accept these HTTP status codes as valid
 accept = [200, 206, 429]
 
-# Exclude placeholder and template links that appear in skill output templates
+# Exclude URLs that reliably block bots or are intentional placeholders
 exclude = [
+  # Returns 403 to bots/crawlers — known valid URL
+  "claude\\.ai",
   # Template placeholder in pr-description skill
-  "^url$",
-  # Skill trigger references used as text (not real URLs)
+  "your-tracker",
+  # Skill trigger references used as inline code (not real URLs)
   "^/[a-z-]+$",
 ]
-
-# Exclude files that are not meant to have real links
-exclude_path = []
