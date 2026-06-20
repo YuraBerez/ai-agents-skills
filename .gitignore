@@ -7,5 +7,7 @@
 # Generated docs — local only
 docs/idea/*
 docs/technical/*
+docs/spikes/*
 !docs/idea/.gitkeep
+!docs/spikes/.gitkeep
 !docs/technical/.gitkeep
