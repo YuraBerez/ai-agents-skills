@@ -32,7 +32,7 @@ Skip any question already answered by the Idea Spec. If all are answered, go dir
 
 ### Step 3 — Produce the Technical Task
 
-Output a structured document using this exact format:
+Output a structured document using this exact format and save it to `docs/technical/<kebab-case-title>.md`.
 
 ---
 

@@ -25,6 +25,9 @@ skills/
     pr-description/
   qa/               # Verify and validate
     pr-check/
+docs/
+  idea/             # Idea Specs saved by /idea-processing
+  technical/        # Technical Tasks saved by /idea-to-task
 README.md
 CLAUDE.md
 ```

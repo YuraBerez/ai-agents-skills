@@ -26,7 +26,7 @@ Ask all questions in a single message. Number them. Wait for answers before proc
 
 ### Step 3 — Produce the Idea Spec
 
-After receiving answers, output a structured document using this exact format:
+After receiving answers, output a structured document using this exact format and save it to `docs/idea/<kebab-case-title>.md`.
 
 ---
 

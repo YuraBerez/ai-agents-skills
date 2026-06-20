@@ -1,7 +1,12 @@
 {
   "permissions": {
     "allow": [
-      "Read(skills/**)"
+      "Read(skills/**)",
+      "Read(docs/**)",
+      "Write(docs/idea/*)",
+      "Write(docs/technical/*)",
+      "Bash(rm docs/idea/*)",
+      "Bash(rm docs/technical/*)"
     ]
   }
 }
