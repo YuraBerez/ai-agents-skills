@@ -4,19 +4,37 @@ A collection of custom skills for [Claude Code](https://claude.ai/code) — reus
 
 ## What is a skill?
 
-A skill is a `SKILL.md` file that Claude Code loads when you type `/skill-name` in a session. It contains structured instructions that guide Claude through a specific, repeatable workflow — like processing an idea or writing a technical task.
+A skill is a `SKILL.md` file that Claude Code loads when you type `/skill-name` in a session. It contains structured instructions that guide Claude through a specific, repeatable workflow.
 
-## Available Skills
+## Skills
+
+### Product
+
+Define what to build and why.
 
 | Skill | Trigger | Description |
 | --- | --- | --- |
-| [idea-processing](skills/idea-processing/SKILL.md) | `/idea-processing` | Turns a rough idea into a structured Idea Spec via clarifying questions |
-| [idea-to-task](skills/idea-to-task/SKILL.md) | `/idea-to-task` | Translates a completed Idea Spec into a concrete technical task ready for implementation |
-| [task-breakdown](skills/task-breakdown/SKILL.md) | `/task-breakdown` | Splits a Technical Task into sprint-ready subtasks with effort estimates |
-| [pr-description](skills/pr-description/SKILL.md) | `/pr-description` | Generates a reviewer-friendly PR description from a Technical Task and implementation summary |
-| [pr-check](skills/pr-check/SKILL.md) | `/pr-check` | Reviews a PR against its Technical Task — verifies criteria coverage, scope, tests, and links |
-| [problem-solver](skills/problem-solver/SKILL.md) | `/problem-solver` | Identifies problems, analyses root causes, and proposes ranked solution options |
-| [research-spike](skills/research-spike/SKILL.md) | `/research-spike` | Structures a time-boxed investigation into an unknown and produces a decision-ready findings report |
+| [idea-processing](skills/product/idea-processing/SKILL.md) | `/idea-processing` | Turns a rough idea into a structured Idea Spec via clarifying questions |
+| [problem-solver](skills/product/problem-solver/SKILL.md) | `/problem-solver` | Identifies problems, analyses root causes, and proposes ranked solution options |
+
+### Dev
+
+Plan, research, and ship.
+
+| Skill | Trigger | Description |
+| --- | --- | --- |
+| [idea-to-task](skills/dev/idea-to-task/SKILL.md) | `/idea-to-task` | Translates a completed Idea Spec into a concrete technical task ready for implementation |
+| [task-breakdown](skills/dev/task-breakdown/SKILL.md) | `/task-breakdown` | Splits a Technical Task into sprint-ready subtasks with effort estimates |
+| [research-spike](skills/dev/research-spike/SKILL.md) | `/research-spike` | Structures a time-boxed investigation and produces a decision-ready findings report |
+| [pr-description](skills/dev/pr-description/SKILL.md) | `/pr-description` | Generates a reviewer-friendly PR description from a Technical Task and implementation summary |
+
+### QA
+
+Verify and validate.
+
+| Skill | Trigger | Description |
+| --- | --- | --- |
+| [pr-check](skills/qa/pr-check/SKILL.md) | `/pr-check` | Reviews a PR against its Technical Task — verifies criteria coverage, scope, tests, and links |
 
 ## Workflow
 
@@ -36,7 +54,7 @@ Raw idea
 
 ```text
 Problem / blocker
-  └─▶ /problem-solver ──▶ Problem Analysis + Ranked Solutions
+  └─▶ /problem-solver ──▶ Problem Analysis
                                 └─▶ /idea-processing  (solution = new feature)
                                 └─▶ /idea-to-task     (solution is already well-defined)
                                 └─▶ /research-spike   (solution needs investigation first)
@@ -48,16 +66,10 @@ Problem / blocker
 2. Open Claude Code in that project
 3. Type `/skill-name` to invoke it
 
-Or reference skills from this repo directly in your `CLAUDE.md`:
-
-```markdown
-Skills are located at: ~/Documents/ai-agents-skills/skills/
-```
-
 ## Adding a new skill
 
-1. Create a directory under `skills/` named after the skill (kebab-case)
-2. Add a `SKILL.md` with clear, imperative instructions
+1. Choose the right category: `skills/product/`, `skills/dev/`, or `skills/qa/`
+2. Create `<category>/<skill-name>/SKILL.md` with clear, imperative instructions
 3. Register the skill in the table above and in `CLAUDE.md`
 
 ### SKILL.md structure
@@ -65,7 +77,7 @@ Skills are located at: ~/Documents/ai-agents-skills/skills/
 ```markdown
 # Skill: <Name>
 
-One-line description of what this skill does.
+One-line description.
 
 ## Trigger
 When and how this skill is invoked. Include typical entry points from other skills.

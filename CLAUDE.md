@@ -10,45 +10,64 @@ This repository contains custom skills for Claude Code AI agents. Skills are reu
 
 ```text
 skills/
-  <skill-name>/
-    SKILL.md        # Entry point — loaded when the skill is invoked
-    [other files]   # Templates, examples, config; keep co-located with the skill
-README.md           # Human-facing docs; keep the skills table in sync here and below
-CLAUDE.md           # This file
+  product/          # Define what to build and why
+    idea-processing/
+    problem-solver/
+  dev/              # Plan, research, and ship
+    idea-to-task/
+    task-breakdown/
+    research-spike/
+    pr-description/
+  qa/               # Verify and validate
+    pr-check/
+README.md
+CLAUDE.md
 ```
 
 ## Available Skills
 
+### Product
+
 | Skill | Trigger | Purpose |
 | --- | --- | --- |
 | idea-processing | `/idea-processing` | Turns a rough idea into a structured Idea Spec via clarifying questions |
-| idea-to-task | `/idea-to-task` | Translates a completed Idea Spec into a concrete technical task ready for implementation |
-| task-breakdown | `/task-breakdown` | Splits a Technical Task into sprint-ready subtasks with effort estimates |
-| pr-description | `/pr-description` | Generates a reviewer-friendly PR description from a Technical Task and implementation summary |
-| pr-check | `/pr-check` | Reviews a PR against its Technical Task — verifies criteria coverage, scope, tests, and links |
 | problem-solver | `/problem-solver` | Identifies problems, analyses root causes, and proposes ranked solution options |
+
+### Dev
+
+| Skill | Trigger | Purpose |
+| --- | --- | --- |
+| idea-to-task | `/idea-to-task` | Translates a completed Idea Spec into a concrete technical task |
+| task-breakdown | `/task-breakdown` | Splits a Technical Task into sprint-ready subtasks with effort estimates |
 | research-spike | `/research-spike` | Structures a time-boxed investigation and produces a decision-ready findings report |
+| pr-description | `/pr-description` | Generates a reviewer-friendly PR description |
+
+### QA
+
+| Skill | Trigger | Purpose |
+| --- | --- | --- |
+| pr-check | `/pr-check` | Reviews a PR against its Technical Task — criteria, scope, tests, links |
 
 ## Skill Pipelines
 
-**Idea pipeline**: `/idea-processing` → Idea Spec → `/idea-to-task` → Technical Task → `/task-breakdown` → `/pr-description` → `/pr-check`
+**Idea**: `/idea-processing` → `/idea-to-task` → `/task-breakdown` → `/pr-description` → `/pr-check`
 
-**Problem pipeline**: `/problem-solver` → Problem Analysis → `/idea-processing` or `/idea-to-task` or `/research-spike`
+**Problem**: `/problem-solver` → `/idea-processing` or `/idea-to-task` or `/research-spike`
 
-**Research**: `/research-spike` can be triggered from any skill that produces Open Technical Questions or Risks.
+**Research**: `/research-spike` can be triggered from any skill that produces Open Technical Questions.
 
 ## Adding a New Skill
 
-1. Create `skills/<skill-name>/SKILL.md` with trigger, process steps, and rules.
-2. Add a row to the **Available Skills** table above.
-3. Add the same row to the table in `README.md`.
+1. Pick the right category: `skills/product/`, `skills/dev/`, or `skills/qa/`
+2. Create `<category>/<skill-name>/SKILL.md`
+3. Add a row to the correct table above and in `README.md`
 
 ## Skill Authoring Conventions
 
-- Instructions must be imperative and unambiguous — Claude follows them literally.
-- Every skill must have a **Trigger** section (when/how it activates) and a **Rules** section (hard constraints).
-- Every skill must include **explicit next-skill references** at the end of its output — skills chain, not dead-end.
-- Skills ask clarifying questions before producing output; never skip to output on ambiguous input.
-- Output format must be specified exactly — use fenced template blocks with named sections.
-- Effort estimates use: XS = <1h, S = half-day, M = 1 day, L = 2–3 days. Tasks sized L must be split.
-- Skills write their output in the language the user used.
+- Instructions must be imperative and unambiguous.
+- Every skill must have a **Trigger** section and a **Rules** section.
+- Every skill must end its output with explicit next-skill references — skills chain, not dead-end.
+- Ask clarifying questions before producing output; never skip on ambiguous input.
+- Specify output format exactly — use fenced template blocks with named sections.
+- Effort scale: XS = <1h, S = half-day, M = 1 day, L = 2–3 days. Split any task sized L.
+- Write output in the language the user used.
