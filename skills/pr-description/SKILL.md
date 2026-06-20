@@ -46,7 +46,7 @@ Output using this exact format:
 ## PR: <title>
 
 > **Type**: Feature / Bug fix / Refactor / Chore
-> **Linked ticket**: [TICKET-123](url) _(if provided)_
+> **Linked ticket**: TICKET-123 — https://your-tracker/TICKET-123 _(if provided)_
 > **Breaking change**: Yes / No
 
 ### What & Why
