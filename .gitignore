@@ -3,3 +3,9 @@
 *.swo
 .env
 .env.*
+
+# Generated docs — local only
+docs/idea/*
+docs/technical/*
+!docs/idea/.gitkeep
+!docs/technical/.gitkeep
