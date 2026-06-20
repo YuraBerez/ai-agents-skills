@@ -77,9 +77,19 @@ Verify and validate.
 
 ## How to use a skill in your project
 
+### Option A — copy individual skills
+
 1. Copy the desired skill directory into your project under `.claude/skills/<skill-name>/`
 2. Open Claude Code in that project
 3. Type `/skill-name` to invoke it
+
+### Option B — copy all commands (recommended)
+
+1. Copy `.claude/commands/` from this repo into your project's `.claude/commands/`
+2. Copy the `skills/` directory into your project root
+3. Open Claude Code and type any `/skill-name` listed above
+
+The command files in `.claude/commands/` are thin wrappers that load the corresponding `SKILL.md` at invocation time, so you can update skills without touching the commands.
 
 ## Adding a new skill
 
